@@ -15,11 +15,11 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "")
 EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER", "")
 
 if not EMAIL_SENDER or not EMAIL_PASSWORD or not EMAIL_RECEIVER:
-    raise ValueError("Lipsește o variabilă de mediu necesară pentru email.")
+    raise ValueError("Lipseste o variabila de mediu necesara pentru email.")
 
 
 def send_email(sensor_id, temperature, humidity):
-    subject = f"Alertă: Senzor {sensor_id} a depășit pragul!"
+    subject = f"Alerta: Senzor {sensor_id} a depasit pragul!"
     body = f"""
     Senzorul {sensor_id} a înregistrat valori ridicate:
     - Temperatură: {temperature}°C (prag: {TEMP_THRESHOLD}°C)
@@ -38,9 +38,9 @@ def send_email(sensor_id, temperature, humidity):
             server.starttls()
             server.login(EMAIL_SENDER, EMAIL_PASSWORD)
             server.sendmail(EMAIL_SENDER, EMAIL_RECEIVER, msg.as_string())
-        print(f"Email trimis către {EMAIL_RECEIVER} pentru senzor {sensor_id}.")
+        print(f"Email trimis catre {EMAIL_RECEIVER} pentru senzor {sensor_id}.")
     except smtplib.SMTPAuthenticationError:
-        print("Eroare de autentificare SMTP. Verifică email-ul și parola.")
+        print("Eroare de autentificare SMTP. Verifica email-ul si parola.")
     except smtplib.SMTPException as e:
         print(f"Eroare SMTP: {e}")
 
@@ -64,7 +64,7 @@ def notify_if_exceeded(request):
         decoded_data = base64.b64decode(encoded_data).decode("utf-8")
 
         sensor_data = json.loads(decoded_data)
-        print(f"Data decodată: {sensor_data}")
+        print(f"Data decodata: {sensor_data}")
 
         sensor_id = sensor_data.get("sensor_id", "unknown")
         temperature = float(sensor_data.get("temperature", 0))
